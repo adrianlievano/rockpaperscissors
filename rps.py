@@ -28,6 +28,21 @@ class HumanPlayer(Player):
         move = input('Rock, paper, or scissors? >')
         return move.lower()
 
+class ReflectPlayer(Player):
+    def move(self):
+        try:
+            move = self.their_move
+        except:
+            move = random.choice(moves)
+        return move
+
+    def learn(self, my_move, their_move):
+        self.their_move = their_move
+
+
+
+
+#class CyclePlayer(Player):
 
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
@@ -63,7 +78,6 @@ class Game:
             print("Draw!")
             print(" ")
 
-
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
 
@@ -79,5 +93,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), RandomPlayer())
+    game = Game(HumanPlayer(), ReflectPlayer())
     game.play_game(0,0)
