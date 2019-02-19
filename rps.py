@@ -22,6 +22,7 @@ class RandomPlayer(Player):
     def move(self):
         return random.choice(moves)
 
+
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
@@ -32,17 +33,39 @@ class Game:
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
+        score1 = 0
+        score2 = 0
 
     def play_round(self):
         move1 = self.p1.move()
         move2 = self.p2.move()
-        print(f"Player 1: {move1}  Player 2: {move2}")
+
+
+        if (beats(move1, move2) == True):
+            score1 = score1 +1
+            print("Player 1 wins!")
+            print(f"Player 1: {move1}  Player 2: {move2}")
+            print(f"Player One score: {score1}  Player Two score: {score2}")
+            print(" ")
+
+        elif (beats(move2, move1) == True):
+            score2 += 1
+            print("Player 2 wins!")
+            print(f"Player 1: {move1}  Player 2: {move2}")
+            print(f"Player One score: {score1}  Player Two score: {score2}")
+            print(" ")
+
+        else:
+            print("Draw!")
+            print(" ")
+
+
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
 
     def play_game(self):
         print("Game start!")
-        for round in range(3):
+        for round in range(5):
             print(f"Round {round}:")
             self.play_round()
         print("Game over!")
