@@ -67,6 +67,8 @@ def beats(one, two):
 
 
 class Game:
+    score = 0
+
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
@@ -105,6 +107,18 @@ class Game:
         for round in range(5):
             print(f"Round {round}:")
             self.play_round()
+
+        if (self.score1 > self.score2):
+            print('Player 1 is the winner!')
+        elif (self.score2 > self.score1):
+            print('Player 2 is the winner!')
+        else:
+            print('The score is tied. Next point wins!')
+            print(" ")
+            while (self.score2 == self.score1):
+                print("Sudden Death Round")
+                self.play_round()
+
         print("Game over!")
 
 
