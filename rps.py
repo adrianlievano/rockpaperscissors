@@ -40,9 +40,18 @@ class ReflectPlayer(Player):
         self.their_move = their_move
 
 
+class CyclePlayer(Player):
+        def move(self):
+            try:
+                for idx, option in enumerate(moves):
+                    if (self.my_move == option):
+                        move = moves[idx + 1]
+            except:
+                move = random.choice(moves)
+            return move
 
-
-#class CyclePlayer(Player):
+        def learn(self, my_move, their_move):
+            self.my_move = my_move
 
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
@@ -93,5 +102,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), ReflectPlayer())
+    game = Game(HumanPlayer(), CyclePlayer())
     game.play_game(0,0)
