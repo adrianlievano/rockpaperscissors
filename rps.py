@@ -45,7 +45,10 @@ class CyclePlayer(Player):
             try:
                 for idx, option in enumerate(moves):
                     if (self.my_move == option):
-                        move = moves[idx + 1]
+                        try:
+                            move = moves[idx + 1]
+                        except:
+                            move = 'rock'
             except:
                 move = random.choice(moves)
             return move
