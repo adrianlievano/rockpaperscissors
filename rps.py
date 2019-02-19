@@ -27,16 +27,17 @@ class HumanPlayer(Player):
     def move(self):
         move = input('Rock, paper, or scissors? >')
         while move not in moves:
-            move = input('Please try picking again. Rock, paper, or scissors? >')
+            move = input('Please try again. Rock, paper, or scissors?>')
             if move in moves:
                 break
         return move.lower()
+
 
 class ReflectPlayer(Player):
     def move(self):
         try:
             move = self.their_move
-        except:
+        except AttributeError:
             move = random.choice(moves)
         return move
 
@@ -51,14 +52,15 @@ class CyclePlayer(Player):
                     if (self.my_move == option):
                         try:
                             move = moves[idx + 1]
-                        except:
+                        except IndexError:
                             move = 'rock'
-            except:
+            except AttributeError:
                 move = random.choice(moves)
             return move
 
         def learn(self, my_move, their_move):
             self.my_move = my_move
+
 
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
@@ -76,20 +78,20 @@ class Game:
     def play_round(self):
         move1 = self.p1.move()
         move2 = self.p2.move()
-
-
-        if (beats(move1, move2) == True):
+        if (beats(move1, move2) is True):
             self.score1 = self.score1 + 1
             print("Player 1 wins!")
             print(f"Player 1: {move1}  Player 2: {move2}")
-            print(f"Player One score: {self.score1}  Player Two score: {self.score2}")
+            print(f"Player_1 score:{self.score1} Player_2 score:{self.score2}"
+                  "")
             print(" ")
 
-        elif (beats(move2, move1) == True):
+        elif (beats(move2, move1) is True):
             self.score2 = self.score2 + 1
             print("Player 2 wins!")
             print(f"Player 1: {move1}  Player 2: {move2}")
-            print(f"Player One score: {self.score1}  Player Two score: {self.score2}")
+            print(f"Player_1 score: {self.score1} Player_2 score:{self.score2}"
+                  "")
             print(" ")
 
         else:
@@ -124,4 +126,4 @@ class Game:
 
 if __name__ == '__main__':
     game = Game(HumanPlayer(), Player())
-    game.play_game(0,0)
+    game.play_game(0, 0)
