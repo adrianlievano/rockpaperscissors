@@ -26,6 +26,10 @@ class RandomPlayer(Player):
 class HumanPlayer(Player):
     def move(self):
         move = input('Rock, paper, or scissors? >')
+        while move not in moves:
+            move = input('Please try picking again. Rock, paper, or scissors? >')
+            if move in moves:
+                break
         return move.lower()
 
 class ReflectPlayer(Player):
@@ -105,5 +109,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), CyclePlayer())
+    game = Game(HumanPlayer(), Player())
     game.play_game(0,0)
